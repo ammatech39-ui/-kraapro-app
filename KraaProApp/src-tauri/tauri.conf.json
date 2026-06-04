@@ -1,0 +1,30 @@
+{
+  "build": {
+    "distDir": "../",
+    "devPath": "../"
+  },
+  "package": {
+    "productName": "KraaPro",
+    "version": "3.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": true
+    },
+    "bundle": {
+      "active": false
+    },
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "title": "Kraa Pro v3",
+        "width": 1300,
+        "height": 850,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ]
+  }
+}

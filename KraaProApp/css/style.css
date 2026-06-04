@@ -1,0 +1,313 @@
+/* css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg-main: #f4f6f9;
+  --bg-card: #ffffff;
+  --text-main: #2c3e50;
+  --text-muted: #7f8c8d;
+  --border-color: #e2e8f0;
+  --primary: #3498db;
+  --primary-hover: #2980b9;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --warning: #f1c40f;
+  --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+  --radius: 12px;
+}
+
+[data-theme="dark"] {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --primary: #38bdf8;
+  --primary-hover: #0ea5e9;
+  --shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+  font-family: 'Cairo', sans-serif;
+  user-select: none;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  direction: rtl;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* التنسيقات العامة للشريط العلوي والأزرار */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 15px 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+  border: 1px solid var(--border-color);
+}
+
+.nav-brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+button, .btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  background: var(--border-color);
+  color: var(--text-main);
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-success { background: var(--success); color: #fff; }
+.btn-danger { background: var(--danger); color: #fff; }
+
+/* تصميم الجداول الفريد الخاص بك والتمرير المرن بالسحب */
+.table-container {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  margin-bottom: 25px;
+  cursor: grab;
+}
+
+.table-container.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  min-width: 1000px;
+}
+
+th, td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+}
+
+th {
+  background: rgba(0,0,0,0.02);
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] th {
+  background: rgba(255,255,255,0.02);
+}
+
+tr:hover td {
+  background: rgba(0,0,0,0.01);
+}
+[data-theme="dark"] tr:hover td {
+  background: rgba(255,255,255,0.01);
+}
+
+/* نظام القوائم المنبثقة والمودالز Modals */
+.modal-overlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 999;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--bg-card);
+  padding: 25px;
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+  transform: translateY(-20px);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* نظام نافذة الأوامر السريعة Command Palette المتطور */
+.cmd-overlay {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15vh;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 1000;
+}
+
+.cmd-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cmd-box {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 600px;
+  border-radius: var(--radius);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.cmd-input-wrapper {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+#cmdInput {
+  font-size: 16px;
+  padding: 10px;
+}
+
+.cmd-results {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.cmd-item {
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,0.02);
+}
+
+.cmd-item.sel, .cmd-item:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.cmd-item .ci {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+.cmd-item.sel .cs, .cmd-item:hover .cs {
+  color: rgba(255,255,255,0.8);
+}
+
+.cmd-item .ct { font-weight: 600; font-size: 14px; }
+.cmd-item .cs { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* التنبيهات المؤقتة Toast */
+.toast-container {
+  position: fixed;
+  bottom: 20px; left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1001;
+}
+
+.toast {
+  background: var(--bg-card);
+  color: var(--text-main);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border-right: 4px solid var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}

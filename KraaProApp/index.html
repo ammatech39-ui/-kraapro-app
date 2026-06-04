@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="نظام متابعة كراء الآلات — إدارة شهرية احترافية"/>
+    <title>كراء الآلات - Kraa Pro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <nav class="nav">
+            <div class="nav-brand">
+                <span>⚙️</span> Kraa Pro v3
+            </div>
+            <div class="nav-actions">
+                <button id="btnThemeToggle" class="btn">🌓 المظهر</button>
+                <button id="btnOpenCmd" class="btn">⌨️ الأوامر (Ctrl+K)</button>
+                <button id="btnSettings" class="btn">⚙️ الإعدادات</button>
+                <button id="btnAddMachine" class="btn btn-primary">➕ إضافة آلة</button>
+                <button id="btnSave" class="btn btn-success">💾 حفظ (Ctrl+S)</button>
+            </div>
+        </nav>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px;">
+            <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border-color);">
+                <div style="font-size: 13px; color: var(--text-muted); font-weight: 600;">إجمالي الدخل هذا الشهر</div>
+                <div id="statTotalEarnings" style="font-size: 24px; font-weight: 800; color: var(--success); margin-top: 5px;">0.00 د.ج</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border-color);">
+                <div style="font-size: 13px; color: var(--text-muted); font-weight: 600;">عدد الآلات النشطة</div>
+                <div id="statActiveMachines" style="font-size: 24px; font-weight: 800; color: var(--primary); margin-top: 5px;">0</div>
+            </div>
+            <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border-color);">
+                <div style="font-size: 13px; color: var(--text-muted); font-weight: 600;">إجمالي ساعات العمل</div>
+                <div id="statTotalHours" style="font-size: 24px; font-weight: 800; color: var(--warning); margin-top: 5px;">0 ساعة</div>
+            </div>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 15px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 25px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 15px;">
+            <label style="font-weight: 700; font-size: 14px;">الشهر المستهدف:</label>
+            <input type="month" id="monthSelector" style="width: auto; max-width: 200px; padding: 6px 12px;">
+        </div>
+
+        <div class="table-container" id="mainTableContainer">
+            <table id="mainTable">
+                <thead id="mainTableHead">
+                    </thead>
+                <tbody id="mainTableBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border-color); margin-bottom: 25px;">
+            <canvas id="analyticsChart" style="max-height: 350px; width: 100%;"></canvas>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="machineModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span id="machineModalTitle">إضافة آلة جديدة</span>
+                <button style="background:none; font-size:20px; color:var(--text-muted); border:none; cursor:pointer;" id="btnCloseMachineModal">✕</button>
+            </div>
+            <form id="machineForm">
+                <div class="form-group">
+                    <label>اسم الآلة / الموديل</label>
+                    <input type="text" id="machineName" required placeholder="مثال: جرافة Caterpillar">
+                </div>
+                <div class="form-group">
+                    <label>سعر الكراء للساعة (د.ج)</label>
+                    <input type="number" id="machineRate" required min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                    <button type="button" class="btn" id="btnCancelMachineModal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">حفظ الآلة</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="cmd-overlay" id="cmdOverlay">
+        <div class="cmd-box">
+            <div class="cmd-input-wrapper">
+                <input type="text" id="cmdInput" autocomplete="off" placeholder="اكتب أمراً أو ابحث (مثال: إضافة، مظهر، حفظ، إعدادات)...">
+            </div>
+            <div class="cmd-results" id="cmdResults">
+                </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
