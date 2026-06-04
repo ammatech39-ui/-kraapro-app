@@ -1,0 +1,28 @@
+name: Build KraaPro EXE
+on: [push, workflow_dispatch]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust Cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Build Executable
+        run: |
+          cd src-tauri
+          cargo build --release
+
+      - name: Upload KraaPro EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: KraaPro-Windows-App
+          path: src-tauri/target/release/KraaPro.exe
